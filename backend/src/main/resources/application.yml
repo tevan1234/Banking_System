@@ -1,0 +1,42 @@
+# =============================
+#  HTTPS 設定
+# =============================
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: myssl
+
+# =============================
+#  資料庫連線（MySQL）
+# =============================
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bankdb?useSSL=false&serverTimezone=Asia/Taipei
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  application:
+    name: banking-backend
+
+# =============================
+#  日誌等級與檔案路徑
+# =============================
+logging:
+  level:
+    root: INFO
+  file:
+    name: logs/app.log
+
+# =============================
+#  MyBatis 設定
+# =============================
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.bankdb.entity
+  type-handlers-package: com.example.bankdb.handler
