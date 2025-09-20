@@ -7,7 +7,7 @@ import com.example.banking.model.enums.UserStatus;
 import lombok.Data;
 
 @Data
-public class User {
+public class Users {
 	private Long userId;
 	private String userName;
 	private String passwordHash;
