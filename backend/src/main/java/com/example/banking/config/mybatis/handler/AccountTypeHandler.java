@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.example.banking.enums.AccountType;
+import com.example.banking.model.enums.AccountType;
 
 public class AccountTypeHandler extends BaseTypeHandler<AccountType>{
 

@@ -3,8 +3,8 @@ package com.example.banking.model.entity;
 import java.math.BigDecimal;
 import java.security.Timestamp;
 
-import com.example.banking.enums.AccountType;
 import com.example.banking.model.enums.AccountStatus;
+import com.example.banking.model.enums.AccountType;
 
 import lombok.Data;
 
