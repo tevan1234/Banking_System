@@ -13,6 +13,12 @@ server:
 #  資料庫連線（MySQL）
 # =============================
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/banking-system
+
   datasource:
     url: jdbc:mysql://localhost:3306/bankdb?useSSL=false&serverTimezone=Asia/Taipei&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
     username: root
