@@ -9,7 +9,7 @@ import com.example.banking.model.enums.AccountType;
 import lombok.Data;
 
 @Data
-public class Accounts {
+public class Account {
 	private long accountId;
 	private long customerId;
 	private String accountNo;

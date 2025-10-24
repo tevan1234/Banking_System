@@ -8,7 +8,7 @@ import com.example.banking.model.enums.TransactionType;
 import lombok.Data;
 
 @Data
-public class Transactions {
+public class Transaction {
 	private long txnId;
 	private long accountId;
 	private TransactionType txnType;

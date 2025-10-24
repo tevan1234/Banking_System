@@ -10,7 +10,7 @@ import com.example.banking.model.enums.CardType;
 import lombok.Data;
 
 @Data
-public class Cards {
+public class Card {
 	private long cardId;
 	private long accountId;
 	private String cardNumber;

@@ -8,7 +8,7 @@ import com.example.banking.model.enums.TransferStatus;
 import lombok.Data;
 
 @Data
-public class Transfers {
+public class Transfer {
 	private long transferId;
 	private long fromAccount;
 	private long toAccount;

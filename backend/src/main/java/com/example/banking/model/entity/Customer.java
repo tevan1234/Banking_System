@@ -7,7 +7,7 @@ import com.example.banking.model.enums.KycStatus;
 import lombok.Data;
 
 @Data
-public class Customers {
+public class Customer {
 	private long customerId;
 	private long userId;
 	private LocalDate dob;

@@ -3,7 +3,7 @@ package com.example.banking.model.entity;
 import lombok.Data;
 
 @Data
-public class Roles {
+public class Role {
 	private Long roleId;
 	private String roleName;
 }
