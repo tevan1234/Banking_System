@@ -7,14 +7,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.banking.mapper.RoleMapper;
-import com.example.banking.model.entity.Users;
+import com.example.banking.model.entity.User;
 
 public class SessionManagerImpl implements SessionManager {
 	
 	private Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 
 	@Override
-	public Session createSession(Users user, JdbcTemplate jdbcTemplate, RoleMapper roleMapper) {
+	public Session createSession(User user, JdbcTemplate jdbcTemplate, RoleMapper roleMapper) {
 		List<String> roles = roleMapper.getRolesByUserId(user.getUserId());
 		Session session = new SessionImpl(this, user, jdbcTemplate, roles);
 		sessionMap.put(user.getUserName(), session);

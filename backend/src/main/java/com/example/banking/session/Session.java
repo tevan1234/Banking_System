@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.example.banking.model.entity.Users;
+import com.example.banking.model.entity.User;
 
 public interface Session {
 	
@@ -16,7 +16,7 @@ public interface Session {
 	
 	public JdbcTemplate getJdbcTemplate();
 	
-	public Users getUserInfo();
+	public User getUserInfo();
 	
 	List<String> getRoles();
 	
