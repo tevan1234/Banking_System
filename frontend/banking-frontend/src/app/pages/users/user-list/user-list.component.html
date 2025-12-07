@@ -1,0 +1,8 @@
+<div class="user-list-wrapper">
+    <h1>使用者列表 : </h1>
+    
+    <ag-grid-angular style="width: 80%; height: 500px;" class="ag-theme-alpine" [rowData]="users"
+        [columnDefs]="columnDefs" [pagination]="true" [rowSelection]="'single'" (cellClicked)="onCellClicked($event)"
+        (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+</div>
