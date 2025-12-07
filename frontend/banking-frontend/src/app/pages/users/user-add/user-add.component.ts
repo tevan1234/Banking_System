@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { UserService } from 'app/services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-user',
     standalone: true,              // Standalone Component
-    imports: [CommonModule, ReactiveFormsModule],  // 匯入 ReactiveFormsModule
+    imports: [ReactiveFormsModule],  // 匯入 ReactiveFormsModule
     templateUrl: './user-add.component.html',
     styleUrls: ['./user-add.component.css']
 })

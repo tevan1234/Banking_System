@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { UserService } from 'app/services/user.service';
 import { ApiResponse } from 'app/models/api-response.model';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 @Component({
     selector: 'app-user-list',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, AgGridModule],
+    imports: [ReactiveFormsModule, AgGridModule],
     templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit {

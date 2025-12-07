@@ -4,14 +4,14 @@ import { Header } from './components/header/header';
 import { Body } from './components/body/body';
 import { Footer } from "./components/footer/footer";
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { AgGridModule } from 'ag-grid-angular';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,               // ✅ Standalone 元件
-  imports: [RouterOutlet, Header, Body, Footer, ReactiveFormsModule, CommonModule, AgGridModule], // ✅ 匯入 Header
+  imports: [RouterOutlet, Header, Body, Footer, ReactiveFormsModule, AgGridModule], // ✅ 匯入 Header
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
