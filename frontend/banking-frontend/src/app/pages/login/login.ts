@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
-import { Router } from '@angular/router';
-import { UserService } from 'app/services/user.service';
-import { LoginService } from 'app/services/login.service';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ReactiveFormsModule],
+    imports: [RouterModule, ReactiveFormsModule],
     templateUrl: './login.html'
 })
-export class login{
+export class login {
     loginForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) {
+    constructor(private fb: FormBuilder, private AuthService: AuthService, private router: Router) {
         this.loginForm = this.fb.group({
             userName: ['', Validators.required],
             password: ['', Validators.required]
@@ -24,26 +23,36 @@ export class login{
     onSubmit() {
         if (this.loginForm.valid) {
             const request = { user: this.loginForm.value };
-            this.loginService.login(request).subscribe({
+            this.AuthService.login(request).subscribe({
                 next: res => {
                     console.log('登入成功', res)
-                    if(res.success) {
+                    if (res.success) {
                         const token = res.data.token;
                         const userCert = res.data.userCert;
+                        const role = userCert.role;
 
-                        localStorage.setItem("token",token);
-                        localStorage.setItem("userId",userCert.userId.toString());
-                        localStorage.setItem("userName",userCert.userName);
-                        localStorage.setItem("role",userCert.role);
+                        localStorage.setItem("token", token);
+                        // localStorage.setItem("userId", userCert.userId.toString());
+                        // localStorage.setItem("userName", userCert.userName);
+                        // localStorage.setItem("role", userCert.role);
 
+                        this.AuthService.handleLoginSuccess(token, role);
+                        // this.AuthService.updateLoginStatus(token);
                         this.router.navigate(['/']);
-                    } else{
+                    } else {
                         const errorMessage = res.message || '帳號或密碼錯誤，請重新輸入。';
-                        console.warn('登入失敗',res);
+                        console.warn('登入失敗', res);
                         alert(errorMessage);
                     }
                 },
-                error: err => console.error('登入失敗，無法辨識錯誤類型', err)
+                error: (error) => {
+                    console.error('登入失敗:', error);
+                    console.log('錯誤狀態:', error.status);
+                    console.log('錯誤內容:', error.error);
+
+                    const errorMsg = error.error?.message || '登入失敗，請稍後再試';
+                    alert(errorMsg);
+                }
             });
         }
     }

@@ -53,10 +53,10 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "builder": "@angular/build:dev-server",
           "options": {
             "proxyConfig": "proxy.conf.json"
           },
-          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "banking-frontend:build:production"

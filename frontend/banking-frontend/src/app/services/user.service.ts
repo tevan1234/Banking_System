@@ -18,6 +18,10 @@ export class UserService {
         return this.http.get(`${this.apiUrl}/listAll`);
     }
 
+    searchByUserName(userName: string) : Observable<ApiResponse<User>> {
+        return this.http.get<ApiResponse<User>>(`${this.apiUrl}/getByUserName?userName=${userName}`);
+    }
+
     // POST 請求
     addUser(request: { user: CreateUserRequest }): Observable<ApiResponse<User>> {
         return this.http.post<ApiResponse<User>>(`${this.apiUrl}/addUser`, request);

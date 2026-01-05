@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Body } from './components/body/body';
 import { Footer } from "./components/footer/footer";
+import { Drawer } from './components/drawer/drawer';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AgGridModule } from 'ag-grid-angular';
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,               // ✅ Standalone 元件
-  imports: [RouterOutlet, Header, Body, Footer, ReactiveFormsModule, AgGridModule], // ✅ 匯入 Header
+  imports: [RouterOutlet, Header, Body, Footer, Drawer, ReactiveFormsModule, AgGridModule], // ✅ 匯入 Header
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -22,6 +23,6 @@ export class App {
 
   showHeaderAndFooter() :boolean {
     const currentUrl = this.router.url;
-    return currentUrl !== '/login';
+    return (currentUrl !== '/login' && currentUrl !== '/add-user');
   }
 }
