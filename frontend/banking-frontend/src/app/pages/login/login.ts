@@ -21,6 +21,7 @@ export class login {
     }
 
     onSubmit() {
+        localStorage.clear();
         if (this.loginForm.valid) {
             const request = { user: this.loginForm.value };
             this.AuthService.login(request).subscribe({
@@ -29,14 +30,14 @@ export class login {
                     if (res.success) {
                         const token = res.data.token;
                         const userCert = res.data.userCert;
-                        const role = userCert.role;
+                        const roles = userCert.roles;
 
                         localStorage.setItem("token", token);
                         // localStorage.setItem("userId", userCert.userId.toString());
-                        // localStorage.setItem("userName", userCert.userName);
+                        localStorage.setItem("userName", userCert.userName);
                         // localStorage.setItem("role", userCert.role);
 
-                        this.AuthService.handleLoginSuccess(token, role);
+                        this.AuthService.handleLoginSuccess(token, roles);
                         // this.AuthService.updateLoginStatus(token);
                         this.router.navigate(['/']);
                     } else {

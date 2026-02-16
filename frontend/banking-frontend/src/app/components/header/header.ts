@@ -14,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
 export class Header {
   title = "我的網站";
 
-  constructor(private router: Router,protected authService: AuthService, private drawerService: DrawerService) { }
+  constructor(public router: Router,protected authService: AuthService, private drawerService: DrawerService) { }
 
   openDrawer() {
     this.drawerService.open();

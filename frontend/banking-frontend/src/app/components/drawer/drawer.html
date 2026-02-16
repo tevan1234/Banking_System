@@ -9,16 +9,21 @@
     'translate-x-full': !(isDrawerOpen$ | async)
     }">
 
-    @if ({role: role$ | async}; as data) {
+    @if ({roles: roles$ | async}; as data) {
     <div class="p-4 overflow-y-auto h-full">
         <h2 class="text-xl font-bold mb-4 text-gray-800">導覽選單</h2>
+        <hr class="my-2 border-gray-500" />
 
         <nav class="space-y-2">
-            <a routerLink="/login" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
-                <img src="assets/img/user.svg" class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor"
+            @if (!(isLoggedIn$ | async)) {
+            <a routerLink="/login"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
+                <img src="assets/img/user.svg"
+                    class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor"
                     viewBox="0 0 20 20">
-                    <span class="ml-3">註冊/登入</span>
+                <span class="ml-3">註冊/登入</span>
             </a>
+            }
 
             <a href="/dashboard"
                 class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
@@ -52,7 +57,7 @@
             </a>
         </nav>
 
-        <hr class="my-4 border-gray-200" />
+        <hr class="my-2 border-gray-500" />
 
         <div>
             <button (click)="toggleDropdown('products')" type="button"
@@ -75,13 +80,13 @@
             </button>
 
             @if (isDropdownOpen('products')) {
-            <ul class="py-2 space-y-2 ml-4">
+            <ul class="py-2 space-y-2 ml-1">
                 <li>
                     <a href="/products/list"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 pl-8">產品列表</a>
                 </li>
 
-                @if (data.role === "Admin") {
+                @if (data.roles?.includes("Admin")) {
                 <li>
                     <a href="/products/add"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 pl-8">新增產品</a>
@@ -97,7 +102,7 @@
 
         </div>
 
-        <hr class="my-4 border-gray-200" />
+        <hr class="my-2 border-gray-500" />
 
         <div>
             <button (click)="toggleDropdown('reports')" type="button"
@@ -119,7 +124,7 @@
             </button>
 
             @if(isDropdownOpen('reports')){
-            <ul class="py-2 space-y-2 ml-4">
+            <ul class="py-1 space-y-2 ml-1">
                 <li>
                     <a href="/reports/sales"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 pl-8">銷售報告</a>
@@ -133,8 +138,11 @@
 
         </div>
 
-        @if (data.role != null) {
-        <a (click)="logout()" class="flex items-center p-2 text-base font-normal text-red-600 rounded-lg hover:bg-red-50">
+
+        @if (isLoggedIn$ | async) {
+        <hr class="my-2 border-gray-500" />
+        <a (click)="logout()"
+            class="flex items-center p-2 text-base font-normal text-red-600 rounded-lg hover:bg-red-50">
             <svg class="flex-shrink-0 w-6 h-6 text-red-500 transition duration-75 group-hover:text-red-700"
                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"

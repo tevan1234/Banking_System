@@ -21,7 +21,7 @@ export interface UserCert {
     fullName: string;
     email?: string;
     phone?: string;
-    role: string;
+    roles: string[];
     status: Status;
 }
 
