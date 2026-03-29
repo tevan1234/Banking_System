@@ -13,6 +13,15 @@ server:
 #  資料庫連線（MySQL）
 # =============================
 spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  thymeleaf:
+    check-template-location: false
   security:
     oauth2:
       resourceserver:
@@ -46,3 +55,12 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.bankdb.entity
   type-handlers-package: com.example.bankdb.handler
+
+# =============================
+#  JWT 設定
+# =============================
+jwt:
+  secret: ${JWT_SECRET:Hiu452XBYl8qN3wh11OnHLiO-uqYXlcVhDNeHLAIPLE}
+  expiration-time-seconds: ${EXPIRATION_SECONDS:3600}
+#  secret: Hiu452XBYl8qN3wh11OnHLiO-uqYXlcVhDNeHLAIPLE
+#  expiration-seconds: 3600
