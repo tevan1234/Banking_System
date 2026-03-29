@@ -1,3 +1,5 @@
+import { Customer, CustomerDetail } from "./customer.model";
+
 export enum Status {
     ACTIVE = "ACTIVE",
     LOCKED = "LOCKED",
@@ -13,6 +15,26 @@ export interface User {
     phone?: string;
     status?: Status;
     createdTime?: Date;
+}
+
+export interface UserDetail {
+    userId: number;
+    userName: string;
+    fullName: string;
+    email?: string;
+    phone?: string;
+    status?: Status;
+    customer?: CustomerDetail
+}
+
+export interface UserProfile {
+    userId: number;
+    fullName: string;
+    email?: string;
+    phone?: string;
+    idNumber?: string;
+    dob?: string
+    address?: string
 }
 
 export interface UserCert {
@@ -44,6 +66,6 @@ export interface loginRequest {
 }
 
 export interface loginResponse {
-    token : string;
-    userCert : UserCert;
+    token: string;
+    userCert: UserCert;
 }

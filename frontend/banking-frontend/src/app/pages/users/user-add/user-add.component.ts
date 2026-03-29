@@ -35,7 +35,7 @@ export class UserAddComponent {
                 switchMap(res => {
                     if (res.success) {
                         const userName = res.data.userName;
-                        return this.userService.searchByUserName(userName);
+                        return this.userService.getByUserName(userName);
                     } else {
                         console.warn('新增失敗，原因:', res.message);
                         return throwError(() => new Error(res.message || '新增使用者失敗'));

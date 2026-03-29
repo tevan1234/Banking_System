@@ -16,13 +16,13 @@
 
         <nav class="space-y-2">
             @if (!(isLoggedIn$ | async)) {
-            <a routerLink="/login"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
-                <img src="assets/img/user.svg"
-                    class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor"
-                    viewBox="0 0 20 20">
-                <span class="ml-3">註冊/登入</span>
-            </a>
+                <a routerLink="/login"
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
+                    <img src="assets/img/user.svg"
+                        class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor"
+                        viewBox="0 0 20 20">
+                    <span class="ml-3">註冊/登入</span>
+                </a>
             }
 
             <a href="/dashboard"
@@ -35,15 +35,17 @@
                 <span class="ml-3">儀表板</span>
             </a>
 
-            <a href="/profile"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
-                <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
-                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"></path>
-                </svg>
-                <span class="ml-3">個人資料</span>
-            </a>
+            @if (data.roles && data.roles.length > 0) {
+                <a routerLink="/user-detail"
+                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="ml-3">個人資料</span>
+                </a>
+            }
 
             <a href="/settings"
                 class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100">
@@ -86,7 +88,7 @@
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 pl-8">產品列表</a>
                 </li>
 
-                @if (data.roles?.includes("Admin")) {
+                @if (!data.roles?.includes("Admin") || !data.roles?.includes("Employee")) {
                 <li>
                     <a href="/products/add"
                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 pl-8">新增產品</a>

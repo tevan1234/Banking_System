@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +14,7 @@ import { AuthService } from 'app/services/auth.service';
 export class login {
     loginForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private AuthService: AuthService, private router: Router) {
+    constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService, private router: Router) {
         this.loginForm = this.fb.group({
             userName: ['', Validators.required],
             password: ['', Validators.required]
@@ -23,22 +24,15 @@ export class login {
     onSubmit() {
         localStorage.clear();
         if (this.loginForm.valid) {
-            const request = { user: this.loginForm.value };
-            this.AuthService.login(request).subscribe({
+            const request = this.loginForm.value ;
+            this.authService.login(request).subscribe({
                 next: res => {
                     console.log('登入成功', res)
                     if (res.success) {
                         const token = res.data.token;
                         const userCert = res.data.userCert;
-                        const roles = userCert.roles;
 
-                        localStorage.setItem("token", token);
-                        // localStorage.setItem("userId", userCert.userId.toString());
-                        localStorage.setItem("userName", userCert.userName);
-                        // localStorage.setItem("role", userCert.role);
-
-                        this.AuthService.handleLoginSuccess(token, roles);
-                        // this.AuthService.updateLoginStatus(token);
+                        this.authService.handleLoginSuccess(token, userCert);
                         this.router.navigate(['/']);
                     } else {
                         const errorMessage = res.message || '帳號或密碼錯誤，請重新輸入。';

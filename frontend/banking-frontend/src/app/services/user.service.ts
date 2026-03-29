@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { CreateUserRequest, User } from '../models/user.model';
+import { CreateUserRequest, User, UserDetail, UserProfile } from '../models/user.model';
 import { ApiResponse } from 'app/models/api-response.model';
 
 @Injectable({
@@ -18,8 +18,16 @@ export class UserService {
         return this.http.get(`${this.apiUrl}/listAll`);
     }
 
-    searchByUserName(userName: string) : Observable<ApiResponse<User>> {
-        return this.http.get<ApiResponse<User>>(`${this.apiUrl}/getByUserName?userName=${userName}`);
+    getUserDetail(userId: number): Observable<ApiResponse<UserDetail>> {
+        return this.http.get<ApiResponse<UserDetail>>(`${this.apiUrl}/detail`, {params: {userId}});
+    }
+
+    getByUserId(userId: number): Observable<ApiResponse<User>> {
+        return this.http.get<ApiResponse<User>>(`${this.apiUrl}/getByUserId`, {params: {userId}});
+    }
+
+    getByUserName(userName: string) : Observable<ApiResponse<User>> {
+        return this.http.get<ApiResponse<User>>(`${this.apiUrl}/getByUserName`, {params: {userName}});
     }
 
     // POST 請求
@@ -30,6 +38,10 @@ export class UserService {
     // PUT 請求
     updateData(id: number, data: any): Observable<any> {
         return this.http.put(`${this.apiUrl}/data/${id}`, data);
+    }
+
+    updateProfile(profile: Partial<UserProfile> ): Observable<ApiResponse<UserProfile>> {
+        return this.http.put<ApiResponse<UserProfile>>(`${this.apiUrl}/updateProfile`, profile);
     }
 
     // DELETE 請求
