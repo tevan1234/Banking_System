@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.UserRoleMapper">
+
+	<resultMap id="userRoleResultMap" type="com.example.banking.model.entity.UserRole">
+		<id property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+	</resultMap>
+
+	<select id="selectById" resultMap="userRoleResultMap" parameterType="Long">
+		Select role_id from user_roles where user_id = #{userId}
+	</select>
+
+	<insert id="insertUserRole" parameterType="Long">
+		INSERT INTO user_role (user_id,role_id)
+		VALUES (#{userId},#{roleId})
+	</insert>
+	
+	<update id="updateUserRole" parameterType="long">
+		UPDATE user_roles 
+		SET
+			role_id = #{roleId}
+		WHERE user_id = #{userId}
+	</update>
+
+</mapper>

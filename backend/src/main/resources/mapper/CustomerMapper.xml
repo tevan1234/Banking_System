@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.CustomerMapper">
+
+	<resultMap id="customerResultMap"
+		type="com.example.banking.model.entity.Customer">
+		<id property="customerId" column="customer_id" />
+		<result property="userId" column="user_id" />
+		<result property="idNumber" column="id_number" />
+		<result property="dob" column="dob" />
+		<result property="address" column="address" />
+		<result property="branch" column="branch" />
+		<result property="kycStatus" column="kyc_status" />
+	</resultMap>
+
+	<select id="selectAllCustomer" resultMap="customerResultMap">
+		select
+		customer_id,
+		user_id, id_number, dob, address, branch, kyc_status
+		from customer
+	</select>
+	
+	<select id="selectById" resultMap="customerResultMap">
+		select
+		customer_id,
+		user_id, id_number, dob, address, branch, kyc_status
+		from customer
+		where customer_id = #{customerId}
+	</select>
+
+	<select id="selectByUserId" resultMap="customerResultMap">
+		select
+		customer_id,
+		user_id, id_number, dob, address, branch, kyc_status
+		from customer
+		where user_id = #{userId}
+	</select>
+
+	<insert id="insertCustomer"
+		parameterType="com.example.banking.model.entity.Customer"
+		useGeneratedKeys="true" keyProperty="customerId">
+		INSERT INTO customer (user_id,
+		id_number, dob, address, branch)
+		VALUES(#{userId},#{idNumber},#{dob},#{address},#{branch})
+	</insert>
+
+</mapper>

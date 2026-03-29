@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.UserMapper">
+
+	<resultMap id="userEntityMap"
+		type="com.example.banking.model.entity.User">
+		<id property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="passwordHash" column="password_hash" />
+		<result property="fullName" column="full_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="status" column="status" />
+		<result property="createdTime" column="created_time" />
+	</resultMap>
+
+	<resultMap id="userBaseMap"
+		type="com.example.banking.model.dto.UserDto">
+		<id property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="fullName" column="full_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<resultMap id="userProfileMap"
+		type="com.example.banking.model.dto.UserProfileDto">
+		<id property="userId" column="user_id" />
+		<result property="fullName" column="full_name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="dob" column="dob" />
+		<result property="address" column="address" />
+	</resultMap>
+
+	<resultMap id="userDetailMap"
+		type="com.example.banking.model.dto.UserDetailDto"
+		extends="userBaseMap">
+		<association property="customer"
+			javaType="com.example.banking.model.dto.UserDetailDto$Customer">
+			<id property="customerId" column="customer_id" />
+			<result property="userId" column="customer_user_id" />
+			<result property="idNumber" column="customer_id_number" />
+			<result property="dob" column="customer_dob" />
+			<result property="address" column="customer_address" />
+			<result property="branch" column="customer_branch" />
+			<result property="kycStatus" column="customer_kyc_status" />
+			<collection property="accounts"
+				ofType="com.example.banking.model.dto.UserDetailDto$Account">
+				<id property="accountId" column="account_id" />
+				<result property="customerId" column="account_customer_id" />
+			</collection>
+		</association>
+	</resultMap>
+
+	<insert id="insertUser"
+		parameterType="com.example.banking.model.entity.User"
+		useGeneratedKeys="true" keyProperty="userId">
+		INSERT INTO users (user_name,
+		password_hash, full_name,
+		email, phone)
+		VALUES (#{userName},
+		#{passwordHash}, #{fullName},
+		#{email}, #{phone})
+	</insert>
+
+	<select id="selectAllUser" resultMap="userEntityMap">
+		SELECT user_id, user_name,
+		password_hash, full_name,
+		email, phone, status, created_time
+		FROM users
+	</select>
+
+	<select id="selectById" resultMap="userEntityMap"
+		parameterType="long">
+		SELECT user_id, user_name,
+		password_hash, full_name,
+		email, phone, status, created_time
+		FROM users WHERE user_id = #{userId}
+	</select>
+
+	<select id="selectByName" resultMap="userEntityMap"
+		parameterType="String">
+		SELECT user_id, user_name,
+		password_hash, full_name,
+		email, phone, status, created_time
+		FROM users WHERE user_name =
+		#{userName}
+	</select>
+
+	<select id="selectUserDetailById" resultMap="userDetailMap"
+		parameterType="Long">
+		select
+		u.user_id as user_id,
+		u.user_name as user_name,
+		u.full_name as full_name,
+		u.email as email,
+		u.phone as phone,
+		u.status as
+		status,
+
+		c.customer_id as customer_id,
+		c.user_id as customer_user_id,
+		c.id_number as customer_id_number,
+		c.dob as customer_dob,
+		c.address as
+		customer_address,
+		c.branch as customer_branch,
+		c.kyc_status as customer_kyc_status,
+
+		a.account_id as
+		account_id,
+		a.customer_id as account_customer_id
+
+		from users u
+		left join
+		customer c on c.user_id = u.user_id
+		left join account a on
+		a.customer_id = c.customer_id
+		where u.user_id = #{userId}
+	</select>
+
+	<select id="selectUserProfileById" resultMap="userProfileMap"
+		parameterType="Long">
+		select
+		u.user_id as user_id,
+		u.full_name as full_name,
+		u.email as email,
+		u.phone as phone,
+
+		c.dob as dob,
+		c.address as address
+
+		from users u
+		left join
+		customer c on c.user_id = u.user_id
+		where
+		u.user_id = #{userId}
+	</select>
+
+	<update id="updateUserProfile"
+		parameterType="com.example.banking.model.dto.UserProfileDto">
+		UPDATE users
+		<set>
+			<if test="email != null">email = #{email},</if>
+			<if test="phone != null">phone = #{phone},</if>
+		</set>
+		WHERE user_id = #{userId}
+	</update>
+
+</mapper>

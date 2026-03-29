@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.RoleMapper">
+	
+	<resultMap id="roleResultMap" type="com.example.banking.model.entity.Role">
+		<id property="roleId" column="role_id"/>
+		<result property="roleName" column="role_name"/>
+	</resultMap>
+	
+	<select id="getRolesByUserId" resultType="java.lang.String" parameterType="long">
+		SELECT r.role_name
+	    FROM roles r
+	    JOIN user_role ur ON ur.role_id = r.role_id
+	    WHERE ur.user_id = #{userId}
+	</select>
+	
+</mapper>

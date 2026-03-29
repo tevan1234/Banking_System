@@ -1,0 +1,29 @@
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.TokenBlacklistMapper">
+
+	<resultMap id="tokenBlacklistResultMap" type="com.example.banking.model.entity.TokenBlacklist">
+        <id property="tokenId" column="token_id"/>
+        <result property="jti" column="jti"/>
+        <result property="userId" column="user_id"/>
+        <result property="expiredAt" column="expired_at"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+    
+    <select id="selectByJti" resultMap="tokenBlacklistResultMap" parameterType="String">
+    	select * from token_blacklist where jti = #{jti}
+    </select>
+    
+    <select id="existsByJti" resultType="boolean" parameterType="String">
+    	SELECT EXISTS(SELECT 1 FROM token_blacklist where jti = #{jti})
+    </select>
+    
+    <insert id="insertBlacklist" parameterType="com.example.banking.model.entity.TokenBlacklist">
+    	INSERT INTO token_blacklist (jti, user_id, expired_at)
+    	VALUES (#{jti}, #{userId}, #{expiredAt})
+    </insert>
+    
+    <delete id="deleteExpired">
+    	DELETE FROM token_blacklist where expired_at &lt; NOW()
+    </delete>
+</mapper>

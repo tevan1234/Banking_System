@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "../dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.banking.mapper.EmployeeMapper">
+
+	<resultMap id="employeeResultMap"
+		type="com.example.banking.model.entity.Employee">
+		<id property="employeeId" column="employee_id" />
+		<result property="userId" column="user_id" />
+		<result property="idNumber" column="id_number" />
+		<result property="branch" column="branch" />
+		<result property="role" column="role" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at"
+			jdbcType="TIMESTAMP" javaType="java.time.LocalDateTime" />
+	</resultMap>
+
+	<insert id="insertEmployee"
+		parameterType="com.example.banking.model.entity.Employee"
+		useGeneratedKeys="true" keyProperty="employeeId">
+		INSERT INTO employees (userId,
+		idNumber, branch, role, status)
+		VALUES(#{user_id},#{id_number},#{branch},#{role},#{status})
+	</insert>
+
+	<select id="selectAllEmployee" resultMap="employeeResultMap">
+		select employee_id,
+		user_id, branch, role, status from employees
+	</select>
+
+	<select id="selectByUserId" resultMap="employeeResultMap"
+		parameterType="long">
+		select employee_id, user_id, branch, role, status from
+		employees
+		where user_id = #{userId}
+	</select>
+
+</mapper>
