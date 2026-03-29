@@ -1,21 +1,19 @@
 package com.example.banking.model.dto;
 
-import com.example.banking.model.enums.UserStatus;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-public class UserDto {
+@Builder
+public class UserProfileDto {
 	private long userId;
-	private String userName;
 	private String fullName;
 	private String email;
 	private String phone;
-	private UserStatus status;
+	private String dob;
+	private String address;
 }

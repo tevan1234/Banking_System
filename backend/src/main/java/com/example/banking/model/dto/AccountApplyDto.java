@@ -1,26 +1,24 @@
 package com.example.banking.model.dto;
 
-import java.math.BigDecimal;
-
-import com.example.banking.model.enums.AccountStatus;
 import com.example.banking.model.enums.AccountType;
+import com.example.banking.model.enums.CardBrand;
+import com.example.banking.model.enums.CardType;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-public class AccountDto {
-	private long accountId;
+@Builder
+public class AccountApplyDto {
 	private long customerId;
-	private String accountNo;
 	private AccountType accountType;
 	private String branch;
-	private BigDecimal balance;
 	private char currency;
-	private AccountStatus status;
+	private CardType cardType;
+	private CardBrand cardBrand;
+	private String cardHolder;
 }
